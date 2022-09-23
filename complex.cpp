@@ -38,9 +38,9 @@ double Complex:: cmplxAbs () const
 
 /*************************************************************/
 
-Complex Complex::operator+(const Complex& cmplxNum) const
+void Complex::operator+() const
 {
-    return Complex (this->r + cmplxNum.r, this->im + cmplxNum.im);
+    return ;
 }
 
 /*************************************************************/
@@ -59,9 +59,9 @@ Complex operator-(const Complex& cmplxNum, const double num)
 
 /*************************************************************/
 
-Complex Complex::operator-(const Complex& cmplxNum) const
+Complex Complex::operator-() const
 {
-    return Complex (this->r - cmplxNum.r, this->im - cmplxNum.im);
+    return Complex ((-1) * this->r, (-1) * this->im);
 }
 
 /*************************************************************/

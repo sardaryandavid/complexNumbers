@@ -7,6 +7,7 @@
 enum {NO = 0, YES};
 
 #define EPS 10e-6
+
 struct Complex
 {
     double r;
@@ -22,8 +23,8 @@ struct Complex
 
     friend Complex operator+ (const Complex&, const double );
     friend Complex operator- (const Complex&, const double );
-    Complex operator+ (const Complex& ) const;
-    Complex operator- (const Complex& ) const;
+    void operator+ () const;
+    Complex operator- () const;
     Complex operator* (const Complex& ) const;
     Complex operator/ (const Complex& ) const;
     Complex operator= (const Complex& );
