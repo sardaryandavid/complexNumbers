@@ -4,9 +4,7 @@ Complex::Complex ()
 {
     r = 0;
     im = 0;
-};
-
-/*************************************************************/
+}
 
 Complex::Complex (double realPart, double imPart) 
 {
@@ -14,26 +12,44 @@ Complex::Complex (double realPart, double imPart)
     im = imPart;
 }
 
-/*************************************************************/
-
 Complex::Complex (const Complex& complexNum)
 {
     r = complexNum.r;
     im = complexNum.im;
 }
 
-/*************************************************************/
-
-Complex Complex::operator= (const Complex& ComplexNum)
+Complex::~Complex ()
 {
-    return Complex (ComplexNum.r, ComplexNum.im);
+    //empty body
 }
 
-/*************************************************************/
-
-double Complex:: cmplxAbs () const
+Complex& Complex::operator= (const Complex& ComplexNum)
 {
-    return sqrt(this->r * this->r + this->im * this->im);
+    this->r  = ComplexNum.r;
+    this->im = ComplexNum.im;
+
+    return *this;
+}
+
+Complex& Complex::operator+= (const Complex& ComplexNum)
+{
+    this->r  += ComplexNum.r;
+    this->im += ComplexNum.im;
+
+    return *this;
+}
+
+Complex& Complex::operator-= (const Complex& ComplexNum)
+{
+    this->r  -= ComplexNum.r;
+    this->im -= ComplexNum.im;
+
+    return *this;
+}
+
+double Complex::cmplxAbs () const
+{
+    return std::sqrt(this->r * this->r + this->im * this->im);
 }
 
 /*************************************************************/
@@ -43,36 +59,26 @@ void Complex::operator+() const
     return ;
 }
 
-/*************************************************************/
-
-Complex operator+(const Complex& cmplxNum, const double num)
-{ 
-    return Complex (cmplxNum.r + num, cmplxNum.im); 
-}
-
-/*************************************************************/
-
-Complex operator-(const Complex& cmplxNum, const double num)
-{
-    return Complex (cmplxNum.r - num, cmplxNum.im);
-}
-
-/*************************************************************/
-
 Complex Complex::operator-() const
 {
-    return Complex ((-1) * this->r, (-1) * this->im);
+    return Complex (-this->r, -this->im);
 }
 
-/*************************************************************/
+Complex Complex::operator+(const double num)
+{ 
+    return Complex (this->r + num, this->im); 
+}
+
+Complex Complex::operator-(const double num)
+{
+    return Complex (this->r - num, this->im);
+}
 
 Complex Complex::operator*(const Complex& cmplxNum) const
 {
-    return Complex (this->r * this->im - cmplxNum.r * cmplxNum.im, 
-                    this->r * cmplxNum.im - this->im * cmplxNum.r);
+    return Complex (this->r * cmplxNum.r - this->im * cmplxNum.im, 
+                    this->r * cmplxNum.im + this->im * cmplxNum.r);
 }
-
-/*************************************************************/
 
 Complex Complex::operator/(const Complex& cmplxNum) const
 {
@@ -81,18 +87,15 @@ Complex Complex::operator/(const Complex& cmplxNum) const
     return Complex ((this->r * cmplxNum.r + this->im * cmplxNum.im) / val,
                     (this->im * cmplxNum.r - this->r * cmplxNum.im) / val);
 }
-/*************************************************************/
 
-Complex::~Complex ()
+Complex Complex::operator+ (const Complex& cmplx)
 {
-    printf ("I was in destructor\n");
+    return Complex (this->r + cmplx.r, this->im + cmplx.im);
 }
 
-/*************************************************************/
-
-void Complex::print () const
+Complex Complex::operator- (const Complex& cmplx)
 {
-    printf ("%.02f + (%.02f)i\n", this->r, this->im);
+    return Complex (this->r - cmplx.r, this->im - cmplx.im);
 }
 
 /*************************************************************/
@@ -105,7 +108,7 @@ int Complex::operator> (const Complex& cmplxNum) const
 int Complex::operator>= (const Complex& cmplxNum) const 
 {
     int diff = this->cmplxAbs() - cmplxNum.cmplxAbs();
-    return (diff > 0 || fabs(diff) < EPS) ? YES : NO;
+    return (diff > 0 || std::fabs(diff) < EPS) ? YES : NO;
 }
 
 int Complex::operator< (const Complex& cmplxNum) const 
@@ -120,7 +123,8 @@ int Complex::operator<= (const Complex& cmplxNum) const
 
 int Complex::operator== (const Complex& cmplxNum) const 
 {
-    return (fabs(this->r - cmplxNum.r) < EPS && fabs(this->im - cmplxNum.im) < EPS); 
+    return (std::fabs(this->r - cmplxNum.r  ) < EPS && 
+            std::fabs(this->im - cmplxNum.im) < EPS); 
 }
 
 int Complex::operator!= (const Complex& cmplxNum) const 
@@ -128,16 +132,12 @@ int Complex::operator!= (const Complex& cmplxNum) const
     return !(*this == cmplxNum); 
 }
 
-/*************************************************************/
-
-Complex operator+ (const Complex& cmplx1, const Complex& cmplx2)
+Complex operator+ (double val, Complex& cmplx) 
 {
-    return Complex (cmplx1.r + cmplx2.r, cmplx1.im + cmplx2.im);
+    return Complex (val + cmplx.r, cmplx.im);
 }
 
-/*************************************************************/
-
-Complex operator- (const Complex& cmplx1, const Complex& cmplx2)
+Complex operator- (double val, Complex& cmplx) 
 {
-    return Complex (cmplx1.r - cmplx2.r, cmplx1.im - cmplx2.im);
+    return Complex (val - cmplx.r, -cmplx.im);
 }
