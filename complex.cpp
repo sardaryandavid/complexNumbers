@@ -33,7 +33,7 @@ Complex Complex::operator= (const Complex& ComplexNum)
 
 double Complex:: cmplxAbs () const
 {
-    return this->r * this->r + this->im * this->im;
+    return sqrt(this->r * this->r + this->im * this->im);
 }
 
 /*************************************************************/
