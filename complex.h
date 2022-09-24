@@ -17,11 +17,11 @@ struct Complex
     Complex (double, double );
     ~Complex ();
 
-    Complex operator+ (const Complex& ) ;
-    Complex operator- (const Complex& ) ;
+    Complex operator+ (const Complex& ) const;
+    Complex operator- (const Complex& ) const;
 
-    Complex operator+ (const double ) ;
-    Complex operator- (const double ) ;
+    Complex operator+ (const double ) const;
+    Complex operator- (const double ) const;
 
     void operator+ () const;
     Complex operator- () const;

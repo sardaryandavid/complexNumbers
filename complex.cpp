@@ -64,12 +64,12 @@ Complex Complex::operator-() const
     return Complex (-this->r, -this->im);
 }
 
-Complex Complex::operator+(const double num)
+Complex Complex::operator+(const double num) const
 { 
     return Complex (this->r + num, this->im); 
 }
 
-Complex Complex::operator-(const double num)
+Complex Complex::operator-(const double num) const
 {
     return Complex (this->r - num, this->im);
 }
@@ -88,12 +88,12 @@ Complex Complex::operator/(const Complex& cmplxNum) const
                     (this->im * cmplxNum.r - this->r * cmplxNum.im) / val);
 }
 
-Complex Complex::operator+ (const Complex& cmplx)
+Complex Complex::operator+ (const Complex& cmplx) const
 {
     return Complex (this->r + cmplx.r, this->im + cmplx.im);
 }
 
-Complex Complex::operator- (const Complex& cmplx)
+Complex Complex::operator- (const Complex& cmplx) const
 {
     return Complex (this->r - cmplx.r, this->im - cmplx.im);
 }
